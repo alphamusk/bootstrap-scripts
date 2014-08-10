@@ -14,8 +14,8 @@ codepath="${dirpath}/${gitrepo}"
 # Check if local dir for repository was specified
 if [ "${1}" = '' ]
 then
-	echo "Error: directory path for code required!"
-	echo "${0} [directory path for code] [git repository name]"
+	echo "Error: local directory path for code required!"
+	echo "${0} [local directory path for code] [git url] [git repository] Optional:[max run count]"
 	exit;
 fi
 
@@ -23,7 +23,7 @@ fi
 if [ "${2}" = '' ]
 then
 	echo "Error: git url required!"
-	echo "${0} [git url]"
+	echo "${0} [local directory path for code] [git url] [git repository] Optional:[max run count]"
 	exit;
 fi
 
@@ -31,7 +31,7 @@ fi
 if [ "${3}" = '' ]
 then
 	echo "Error: git repository name required!"
-	echo "${0} [git repository name]"
+	echo "${0} [local directory path for code] [git url] [git repository] Optional:[max run count]"
 	exit;
 fi
 
