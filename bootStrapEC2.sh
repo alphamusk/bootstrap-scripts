@@ -31,6 +31,7 @@ cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 # Git App Server shell script
 cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
 /root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk bootstrap-scripts
+chmod +x /opt/bootstrap-scripts/*.sh
 
 # Create crontab for getting latest code
 serverCMD="/opt/bootstrap-scripts/AppServer.sh > /dev/null 2>&1"
