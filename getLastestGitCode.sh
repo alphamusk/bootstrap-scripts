@@ -15,7 +15,7 @@ codepath="${dirpath}/${gitrepo}"
 if [ "${1}" = '' ]
 then
 	echo "Error: directory path for code required!"
-	echo "$0 [directory path for code] [git repository name]"
+	echo "${0} [directory path for code] [git repository name]"
 	exit;
 fi
 
@@ -23,7 +23,7 @@ fi
 if [ "${2}" = '' ]
 then
 	echo "Error: git repository name required!"
-	echo "$0 [git repository name]"
+	echo "${0} [git repository name]"
 	exit;
 fi
 
