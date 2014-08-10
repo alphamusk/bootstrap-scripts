@@ -1,4 +1,7 @@
 #!/bin/sh
+# Start PHP AppServer
+# Version: 140809
+# Author: AlphaMusk.com
 
 # Kill any php that's running
 killall -9 php

@@ -1,11 +1,11 @@
 #!/bin/bash
-# BootStrapEC2
+# BootStrap EC2 App Server
 # Version: 140809
 # Author: AlphaMusk.com
 
 ## SETUP: Get Latest Git code
 # Install git
-apt-get install -y git
+apt-get install -y git php5
 
 
 # Create install directories
@@ -37,3 +37,6 @@ chmod +x /opt/bootstrap-scripts/*.sh
 serverCMD="/opt/bootstrap-scripts/AppServer.sh > /dev/null 2>&1"
 job="*/1 * * * * $serverCMD"
 cat <(grep -i -v "$serverCMD" <(crontab -l)) <(echo "$job") | crontab -
+
+# Start AppServer
+/opt/bootstrap-scripts/AppServer.sh > /dev/null 2>&1
