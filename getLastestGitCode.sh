@@ -6,7 +6,7 @@
 num='0'
 pause='5'
 dirpath="${1}"
-giturl="${2}"
+giturl="${2}/"
 gitrepo="${3}"
 maxrun="${4}"
 codepath="${dirpath}/${gitrepo}"
@@ -47,7 +47,7 @@ cd ${codepath} > /dev/null 2>&1
 if [ "$(echo $?)" != '0' ]
 then
 	echo "Error: git repository not cloned to ${codepath}"
-	echo "Run: cd ${dirpath} && git clone ${giturl}/${gitrepo}"
+	echo "Run: cd ${dirpath} && git clone ${giturl}${gitrepo}"
 	exit;
 fi
 
@@ -56,7 +56,7 @@ while [ "${num}" != "${maxrun}" ]
 do
 	echo '';
 	echo '----------------------------------------------------------------------------------------------';
-	echo "Pulling git code from: ${giturl}/${gitrepo}"
+	echo "Pulling git code from: ${giturl}${gitrepo}"
 	git pull ${giturl}${gitrepo}.git
 	echo '----------------------------------------------------------------------------------------------';
 	
