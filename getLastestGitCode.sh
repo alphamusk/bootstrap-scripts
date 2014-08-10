@@ -1,17 +1,17 @@
 #!/bin/bash
-# Get lastest code
+# Get lastest git code
 # Version: 140621, 140809
 # Author: AlphaMusk.com
 
 num='0'
 pause='5'
-giturl='https://github.com/alphamusk/'
 dirpath="${1}"
-gitrepo="${2}"
-maxrun="${3}"
+giturl="${2}"
+gitrepo="${3}"
+maxrun="${4}"
 codepath="${dirpath}/${gitrepo}"
 
-# Check if local repository was specified
+# Check if local dir for repository was specified
 if [ "${1}" = '' ]
 then
 	echo "Error: directory path for code required!"
@@ -19,8 +19,16 @@ then
 	exit;
 fi
 
-# Check if git url was specified
+# Check if git repo was specified
 if [ "${2}" = '' ]
+then
+	echo "Error: git url required!"
+	echo "${0} [git url]"
+	exit;
+fi
+
+# Check if git repo was specified
+if [ "${3}" = '' ]
 then
 	echo "Error: git repository name required!"
 	echo "${0} [git repository name]"
@@ -28,7 +36,7 @@ then
 fi
 
 # Check if a max run count was specified, defaults to 1 run
-if [ "${3}" = '' ] || [ "${3}" = 0 ]
+if [ "${4}" = '' ] || [ "${4}" = 0 ]
 then
 	echo "Maximum run not specified, running ${0} once"
 	maxrun='1'
@@ -39,7 +47,7 @@ cd ${codepath} > /dev/null 2>&1
 if [ "$(echo $?)" != '0' ]
 then
 	echo "Error: git repository not cloned to ${codepath}"
-	echo "Run: cd ${dirpath} && git clone ${giturl}${gitrepo}"
+	echo "Run: cd ${dirpath} && git clone ${giturl}/${gitrepo}"
 	exit;
 fi
 
@@ -48,7 +56,7 @@ while [ "${num}" != "${maxrun}" ]
 do
 	echo '';
 	echo '----------------------------------------------------------------------------------------------';
-	echo "Pulling git code from: ${giturl}${gitrepo}"
+	echo "Pulling git code from: ${giturl}/${gitrepo}"
 	git pull ${giturl}${gitrepo}.git
 	echo '----------------------------------------------------------------------------------------------';
 	
