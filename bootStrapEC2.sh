@@ -35,5 +35,5 @@ chmod +x /opt/bootstrap-scripts/*.sh
 
 # Create crontab for getting latest code
 serverCMD="/opt/bootstrap-scripts/AppServer.sh > /dev/null 2>&1"
-job="*/10 * * * * $serverCMD"
+job="*/1 * * * * $serverCMD"
 cat <(grep -i -v "$serverCMD" <(crontab -l)) <(echo "$job") | crontab -
