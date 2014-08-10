@@ -28,3 +28,7 @@ cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 # Run script once to grab AppServer code
 /root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk mock-app-server
 
+# Create crontab for getting latest code
+serverCMD="/opt/mock-app-server/AppServer.sh > /dev/null 2>&1"
+job="*/15 * * * * $serverCMD"
+cat <(grep -i -v "$serverCMD" <(crontab -l)) <(echo "$job") | crontab -
