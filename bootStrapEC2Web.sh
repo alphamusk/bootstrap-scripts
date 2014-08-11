@@ -11,7 +11,7 @@ export AWS_DEFAULT_REGION=${REGION}
 # Install git
 apt-get update -y
 apt-get update -y
-apt-get install -y git php5 php5-mysql apache2 mysql-client 
+apt-get install -y git php5 php5-mysql apache2 mysql-client awscli
 
 
 # Create install directories
@@ -27,10 +27,10 @@ rm -rf /var/www/html
 mkdir -p  /var/www/html
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
-cd /var/www/html && git clone https://github.com/alphamusk/mock-app-client
+cd /var/www/html/itcloudarchitect.com && git clone https://github.com/alphamusk/mock-app-client
 
 # Create crontab for getting latest code
-codeCMD="/root/scripts/getLastestGitCode.sh /var/www/html https://github.com/alphamusk mock-app-client > /dev/null 2>&1"
+codeCMD="/root/scripts/getLastestGitCode.sh /var/www/html/itcloudarchitect.com https://github.com/alphamusk mock-app-client > /dev/null 2>&1"
 job="*/10 * * * * $codeCMD"
 cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 
