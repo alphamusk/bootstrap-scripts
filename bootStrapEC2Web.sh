@@ -10,11 +10,8 @@ export AWS_DEFAULT_REGION=${REGION}
 ## SETUP: Get Latest Git code
 # Install git
 apt-get update -y
-echo $?
 apt-get update -y
-echo $?
 apt-get install -y git php5 php5-mysql apache2 mysql-client 
-echo $?
 
 
 # Create install directories
@@ -25,7 +22,7 @@ mkdir -p /root/scripts && cd /root/scripts
 rm -f /root/scripts/getLastestGitCode.sh && wget https://raw.githubusercontent.com/alphamusk/bootstrap-scripts/master/getLastestGitCode.sh
 chmod +x /root/scripts/getLastestGitCode.sh
 
-# Clone latest code for AppClient webserver
+# Clone latest code for Wev Client webserver
 rm -rf /var/www/html
 mkdir -p  /var/www/html
 chown -R www-data.www-data /var/www/html
@@ -50,7 +47,7 @@ echo ' ServerName www.democloudservices.com'			>> /etc/apache2/sites-enabled/000
 echo ' ServerAdmin webmaster@democloudservices.com'		>> /etc/apache2/sites-enabled/000-default.conf
 echo ' DocumentRoot /var/www/html/'						>> /etc/apache2/sites-enabled/000-default.conf
 echo ' '												>> /etc/apache2/sites-enabled/000-default.conf
-echo ' <Directory /var/www/html/>'						>> /etc/apache2/sites-enabled/000-default.conf
+echo ' <Directory /var/www/html/m>'						>> /etc/apache2/sites-enabled/000-default.conf
 echo ' Options Indexes FollowSymLinks'					>> /etc/apache2/sites-enabled/000-default.conf
 echo ' AllowOverride None'								>> /etc/apache2/sites-enabled/000-default.conf
 echo ' Require all granted'								>> /etc/apache2/sites-enabled/000-default.conf
@@ -70,7 +67,7 @@ mkdir -p /opt && cd /opt && git clone https://github.com/alphamusk/bootstrap-scr
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh us-west-2 itcloudarchitect register
+/opt/bootstrap-scripts/regEC2elb.sh ${REGION} itcloudarchitect-com-web register
 
 
 # Other code from S3 itcloudarchitect.com
