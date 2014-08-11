@@ -3,6 +3,9 @@
 # Version: 140809
 # Author: AlphaMusk.com
 
+# Set the default region
+export AWS_DEFAULT_REGION=us-west-2
+
 ## SETUP: Get Latest Git code
 # Install git
 apt-get install -y git php5
