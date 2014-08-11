@@ -65,7 +65,7 @@ PUBLICIP=$(curl --silent http://169.254.169.254/latest/meta-data/local-ipv4)
 LBNAME=$(aws elb describe-load-balancers --output text --query 'LoadBalancerDescriptions[*].[LoadBalancerName]' | grep -i ${LBSEARCH})
 
 
-if [ -z "${LBSEARCH}" ]
+if [ -z "${LBNAME}" ]
 then
 	echo "Error: nothing found when searching for loadbalancer ${LBSEARCH}"
 	exit 100;

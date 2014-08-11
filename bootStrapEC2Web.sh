@@ -5,7 +5,12 @@
 
 ## SETUP: Get Latest Git code
 # Install git
+apt-get update -y
+echo $?
+apt-get update -y
+echo $?
 apt-get install -y git php5 php5-mysql apache2 mysql-client 
+echo $?
 
 
 # Create install directories
@@ -19,7 +24,7 @@ chmod +x /root/scripts/getLastestGitCode.sh
 # Clone latest code for AppClient webserver
 rm -rf /var/www/html
 mkdir -p  /var/www/html
-chown www-data.www-data -R /var/www/html
+chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 cd /var/www/html && git clone https://github.com/alphamusk/mock-app-client
 
@@ -57,5 +62,11 @@ cat /etc/apache2/sites-enabled/000-default.conf
 apachectl restart
 
 
+# Git shell scripts
+rm -rf /opt/
+mkdir -p /opt && cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
+/root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk bootstrap-scripts
+chmod +x /opt/bootstrap-scripts/*.sh
+
 # Register web server with ELB
-/root/scripts/ec2elb.sh us-west-2 itcloudarchitect.com register
+/opt/bootstrap-scripts/regEC2elb.sh us-west-2 itcloudarchitect.com register
