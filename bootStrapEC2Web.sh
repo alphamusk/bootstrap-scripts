@@ -37,7 +37,7 @@ cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 /root/scripts/getLastestGitCode.sh /var/www/html https://github.com/alphamusk mock-app-client
 
 # Other code from S3 itcloudarchitect.com
-aws s3 cp s3://itcloudarchitect.com-source /var/www/html
+aws s3 cp --recursive s3://itcloudarchitect.com-source /var/www/html
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
