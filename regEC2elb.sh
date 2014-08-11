@@ -27,16 +27,8 @@ REGION="${1}"		# Get the region
 LBSEARCH="${2}"		# Search string for lb
 ACTION="${3}"		# action to perform, register, deregister
 
-# Check for awscli, install if needed
-type -p aws >/dev/null 2>&1
-if [ "$(echo $?)" != '0' ]
-then
-	echo
-	echo "Searching for loadbalancer named \"${LBSEARCH}\" in region \"${REGION}\""
-	echo
-else
-	echo "WARNING: awscli is required, but it's not installed."
-	echo "Installing awscli"
+# Install awscli
+
 	sudo apt-get install awscli -y >/dev/null 2>&1
 fi
 
