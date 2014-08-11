@@ -28,11 +28,7 @@ LBSEARCH="${2}"		# Search string for lb
 ACTION="${3}"		# action to perform, register, deregister
 
 # Install awscli
-
-	sudo apt-get install awscli -y >/dev/null 2>&1
-fi
-
-
+sudo apt-get install awscli -y >/dev/null 2>&1
 
 
 # Set the default region
