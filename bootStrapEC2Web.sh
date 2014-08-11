@@ -4,7 +4,8 @@
 # Author: AlphaMusk.com
 
 # Set the default region
-export AWS_DEFAULT_REGION=us-west-2
+REGION='us-west-2'
+export AWS_DEFAULT_REGION=${REGION}
 
 ## SETUP: Get Latest Git code
 # Install git
@@ -39,16 +40,6 @@ cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 # Run script once to grab AppClient webserver code
 /root/scripts/getLastestGitCode.sh /var/www/html https://github.com/alphamusk mock-app-client
 
-# Other code from S3 itcloudarchitect.com
-aws s3 cp --recursive s3://itcloudarchitect.com-source /var/www/html
-chown -R www-data.www-data /var/www/html
-chmod 755 -R /var/www/html
-echo 'environment=cloud' >> /etc/environment
-
-# Create crontab for getting latest code
-codeCMD="aws s3 cp s3://itcloudarchitect.com-source /var/www/html > /dev/null 2>&1"
-job="*/10 * * * * $codeCMD"
-cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 
 # Change apache settings
 cp -v /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf.org
@@ -72,10 +63,6 @@ echo ' </VirtualHost>'									>> /etc/apache2/sites-enabled/000-default.conf
 
 cat /etc/apache2/sites-enabled/000-default.conf
 
-# Restart apache for changes to take affect
-apachectl restart
-
-
 # Git shell scripts
 rm -rf /opt/
 mkdir -p /opt && cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
@@ -84,3 +71,19 @@ chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
 /opt/bootstrap-scripts/regEC2elb.sh us-west-2 itcloudarchitect register
+
+
+# Other code from S3 itcloudarchitect.com
+export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://itcloudarchitect.com-source /var/www/html
+chown -R www-data.www-data /var/www/html
+chmod 755 -R /var/www/html
+echo 'environment=cloud' >> /etc/environment
+
+# Create crontab for getting latest code
+codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp s3://itcloudarchitect.com-source /var/www/html > /dev/null 2>&1"
+job="*/10 * * * * $codeCMD"
+cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
+
+
+# Restart apache for changes to take affect
+apachectl restart
