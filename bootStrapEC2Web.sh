@@ -36,6 +36,12 @@ cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 # Run script once to grab AppClient webserver code
 /root/scripts/getLastestGitCode.sh /var/www/html https://github.com/alphamusk mock-app-client
 
+# Other code from S3 itcloudarchitect.com
+aws s3 cp s3://itcloudarchitect.com-source /var/www/html
+chown -R www-data.www-data /var/www/html
+chmod 755 -R /var/www/html
+echo 'environment=cloud' >> /etc/environment
+
 # Change apache settings
 cp -v /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf.org
 rm -f /etc/apache2/sites-enabled/000-default.conf
