@@ -69,4 +69,4 @@ mkdir -p /opt && cd /opt && git clone https://github.com/alphamusk/bootstrap-scr
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh us-west-2 itcloudarchitect.com register
+/opt/bootstrap-scripts/regEC2elb.sh us-west-2 itcloudarchitect register
