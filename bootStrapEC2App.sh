@@ -7,6 +7,9 @@
 REGION='us-west-2'
 export AWS_DEFAULT_REGION=${REGION}
 
+# Set default short domiain name, no .com etc
+DOMAINNAME='itcloudarchitect'
+
 ## SETUP: Get Latest Git code
 # Install git
 apt-get update -y
@@ -69,7 +72,7 @@ cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh ${REGION} itcloudarchitect-com-app register
+/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINAME}-app register
 
 # Other code from S3 itcloudarchitect.com
 # export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://itcloudarchitect.com-source /var/www/html
