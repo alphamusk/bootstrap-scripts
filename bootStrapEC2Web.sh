@@ -42,6 +42,11 @@ chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
 
+# Create crontab for getting latest code
+codeCMD="aws s3 cp s3://itcloudarchitect.com-source /var/www/html > /dev/null 2>&1"
+job="*/10 * * * * $codeCMD"
+cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
+
 # Change apache settings
 cp -v /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf.org
 rm -f /etc/apache2/sites-enabled/000-default.conf
