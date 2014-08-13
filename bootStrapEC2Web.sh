@@ -30,7 +30,7 @@ rm -rf /var/www/html
 mkdir -p  /var/www/html
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
-cd /var/www/html && git clone https://github.com/alphamusk/mock-app-client
+cd /var/www/html/${DOMAINNAME} && git clone https://github.com/alphamusk/mock-app-client
 
 # Create crontab for getting latest code
 codeCMD="/root/scripts/getLastestGitCode.sh /var/www/html/${DOMAINNAME} https://github.com/alphamusk mock-app-client > /dev/null 2>&1"
