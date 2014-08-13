@@ -33,12 +33,12 @@ chmod 755 -R /var/www/html
 cd /var/www/html && git clone https://github.com/alphamusk/mock-app-client
 
 # Create crontab for getting latest code
-codeCMD="/root/scripts/getLastestGitCode.sh /var/www/html https://github.com/alphamusk mock-app-client > /dev/null 2>&1"
+codeCMD="/root/scripts/getLastestGitCode.sh /var/www/html/${DOMAINNAME} https://github.com/alphamusk mock-app-client > /dev/null 2>&1"
 job="*/30 * * * * $codeCMD"
 cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 
 # Run script once to refresh AppClient webserver code
-/root/scripts/getLastestGitCode.sh /var/www/html https://github.com/alphamusk mock-app-client
+/root/scripts/getLastestGitCode.sh /var/www/html/${DOMAINNAME} https://github.com/alphamusk mock-app-client
 
 
 # Change apache settings
@@ -83,13 +83,14 @@ chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
 
 # Create crontab for getting latest code
-codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp s3://itcloudarchitect.com-source /var/www/html > /dev/null 2>&1"
-job="*/30 * * * * $codeCMD"affect
+codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://itcloudarchitect.com-source /var/www/html > /dev/null 2>&1"
+job="*/30 * * * * $codeCMD"
 cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 
 
 # Restart apache for changes to take 
 apachectl restart
+netstat -antpu | grep 80
 
 
 

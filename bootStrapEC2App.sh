@@ -43,29 +43,6 @@ cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 /root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk mock-app-server
 
 
-# Change apache settings
-# cp -v /etc/apache2/sites-enabled/000-default.conf /etc/apache2/sites-enabled/000-default.conf.org
-# rm -f /etc/apache2/sites-enabled/000-default.conf
-# touch /etc/apache2/sites-enabled/000-default.conf
-# echo '<VirtualHost *:80>' 								>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' ServerName www.democloudservices.com'			>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' ServerAdmin webmaster@democloudservices.com'		>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' DocumentRoot /var/www/html/'						>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' '												>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' <Directory /var/www/html/mock-app-server>'		>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' Options Indexes FollowSymLinks'					>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' AllowOverride None'								>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' Require all granted'								>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' </Directory>'									>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' '												>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' ErrorLog ${APACHE_LOG_DIR}/democloudservices.com_error.log'				>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' CustomLog ${APACHE_LOG_DIR}/democloudservices.com_access.log combined'	>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' '												>> /etc/apache2/sites-enabled/000-default.conf
-# echo ' </VirtualHost>'									>> /etc/apache2/sites-enabled/000-default.conf
-
-# cat /etc/apache2/sites-enabled/000-default.conf
-
-
 # Git shell scripts
 cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
 /root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk bootstrap-scripts
