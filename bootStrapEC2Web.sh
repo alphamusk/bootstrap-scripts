@@ -1,6 +1,6 @@
 #!/bin/bash
 # BootStrap EC2 Web Server
-# Version: 140809
+# Version: 140809, 140813
 # Author: AlphaMusk.com
 
 # Set the default region
