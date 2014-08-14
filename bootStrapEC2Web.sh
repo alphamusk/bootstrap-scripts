@@ -27,7 +27,7 @@ chmod +x /root/scripts/getLastestGitCode.sh
 
 # Clone latest code for App Client webserver
 rm -rf /var/www/html
-mkdir -p  /var/www/html
+mkdir -p  /var/www/html/${DOMAINNAME}
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 cd /var/www/html/${DOMAINNAME} && git clone https://github.com/alphamusk/mock-app-client
