@@ -77,7 +77,7 @@ chmod +x /opt/bootstrap-scripts/*.sh
 
 # Other code from S3 itcloudarchitect.com
 mkdir /var/www/html/${DOMAINNAME}
-export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${DOMAINNAME}.com-source /var/www/html/${DOMAINNAME}
+export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${DOMAINNAME}.com-source /var/www/html/${DOMAINNAME} /dev/null 2>&1
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
