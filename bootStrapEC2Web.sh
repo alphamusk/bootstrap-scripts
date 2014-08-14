@@ -77,13 +77,13 @@ chmod +x /opt/bootstrap-scripts/*.sh
 
 # Other code from S3 itcloudarchitect.com
 mkdir /var/www/html/${DOMAINNAME}
-export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${DOMAINNAME}.com-source /var/www/html/${DOMAINNAME} /dev/null 2>&1
+export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${DOMAINNAME}.com-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
 
 # Create crontab for getting latest code
-codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://itcloudarchitect.com-source /var/www/html > /dev/null 2>&1"
+codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://${DOMAINNAME}.com-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1"
 job="*/30 * * * * $codeCMD"
 cat <(grep -i -v "$codeCMD" <(crontab -l)) <(echo "$job") | crontab -
 
