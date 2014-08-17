@@ -2,13 +2,15 @@
 # BootStrap EC2 App Server, Ubuntu
 # Version: 140809, 140816
 # Author: AlphaMusk.com
+# Bootstrap cmd: wget -qO- https://your-url/bootStrapEC2App.sh | bash
+
 
 # Set the default region
 REGION='us-west-2'
 export AWS_DEFAULT_REGION=${REGION}
 
 # Set default short domiain name, no .com etc
-DOMAINNAME='itcloudarchitect.com'
+DOMAINNAME='itcloudarchitect'
 TIER='app'
 
 ## SETUP: Get Latest Git code
@@ -32,7 +34,7 @@ mkdir /opt && cd /opt && git clone https://github.com/alphamusk/mock-app-server
 # Create crontab for getting latest code every xx minutes
 codeCMD="/root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk mock-app-server > /dev/null 2>&1"
 job="*/30 * * * * ${codeCMD}"
-cat <(grep -i -v "${codeCMD}" <(crontab -l)) <(echo "$job") | crontab -
+cat <(grep -i -v "${codeCMD}" <(crontab -l)) <(echo "${job}") | crontab -
 
 # Run script once to grab AppServer appserver code
 /root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk mock-app-server
@@ -44,7 +46,7 @@ cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh "${REGION}" "${DOMAINAME}-${TIER}" register
+/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINAME}-${TIER} register
 
 # Create crontab for running app server
 serverCMD="/opt/bootstrap-scripts/AppServer.sh > /dev/null 2>&1"

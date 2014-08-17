@@ -2,14 +2,17 @@
 # BootStrap EC2 Web Server, Ubuntu
 # Version: 140809, 140816
 # Author: AlphaMusk.com
+# Bootstrap cmd: wget -qO- https://your-url/bootStrapEC2Web.sh | bash
+
 
 # Set the default region
 REGION='us-west-2'
 export AWS_DEFAULT_REGION=${REGION}
 
 # Set default short domiain name, no .com etc
-DOMAINNAME='itcloudarchitect.com'
+DOMAINNAME='itcloudarchitect'
 TIER='web'
+S3-BUCKET-SRC-CODE="${DOMAINNAME}.com-source"
 
 ## SETUP: Get Latest Git code
 # Install git
@@ -84,7 +87,7 @@ chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
 
 # Create crontab for getting latest code
-codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://${DOMAINNAME}-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1"
+codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://${S3-BUCKET-SRC-CODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1"
 job="*/30 * * * * ${codeCMD}"
 cat <(grep -i -v "${codeCMD}" <(crontab -l)) <(echo "${job}") | crontab -
 
