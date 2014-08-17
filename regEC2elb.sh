@@ -1,6 +1,6 @@
 #!/bin/sh
-# Purpose: Add/remove AWS instance from elb load balancer
-# Version: 081014
+# Purpose: Add/remove AWS instance from ELB load balancer
+# Version: 140810, 140816
 # Author: AlphaMusk.com
 
 # Check to for entry
@@ -11,14 +11,14 @@ then
 	echo
 	echo "Example: ${0} us-west-2 myloadbalancer1"
 	echo
-	exit 100;
+	exit 1;
 fi
 
 if [ "${3}" != 'register' ] && [ "${3}" != 'deregister' ]
 then
 	echo "Error: Invalid acion to perform on loadbalancer, choose \"register\" or \"deregister\""
 	echo 
-	exit 100;
+	exit 1;
 fi
 
 
@@ -56,7 +56,7 @@ LBNAME=$(aws elb describe-load-balancers --output text --query 'LoadBalancerDesc
 if [ -z "${LBNAME}" ]
 then
 	echo "Error: nothing found when searching for loadbalancer ${LBSEARCH}"
-	exit 100;
+	exit 1;
 else 
 	echo "Found an loadbalancer named \"${LBNAME}\""
 fi	
@@ -94,10 +94,6 @@ then
 	exit 0;
 fi
 
-
-
-
-#"Resource":"arn:aws:elasticloadbalancing:region:your-account-id:loadbalancer/your-load-balancer-name"
-#"Resource":"arn:aws:elasticloadbalancing:us-west-2:439941837188:loadbalancer/*"
+#EOF
 
 
