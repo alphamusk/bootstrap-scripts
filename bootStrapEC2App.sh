@@ -46,11 +46,11 @@ cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINAME}-${TIER} register
+/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
 
 # Create crontab for running app server
 serverCMD="/opt/bootstrap-scripts/AppServer.sh > /dev/null 2>&1"
-job="*/10 * * * * ${serverCMD}"
+job="*/30 * * * * ${serverCMD}"
 cat <(grep -i -v "${serverCMD}" <(crontab -l)) <(echo "${job}") | crontab -
 
 
