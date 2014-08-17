@@ -1,6 +1,6 @@
 #!/bin/bash
-# BootStrap EC2 Web Server
-# Version: 140809, 140813-2
+# BootStrap EC2 Web Server, Ubuntu
+# Version: 140809, 140816
 # Author: AlphaMusk.com
 
 # Set the default region
@@ -8,7 +8,8 @@ REGION='us-west-2'
 export AWS_DEFAULT_REGION=${REGION}
 
 # Set default short domiain name, no .com etc
-DOMAINNAME='itcloudarchitect'
+DOMAINNAME='itcloudarchitect.com'
+TIER='web'
 
 ## SETUP: Get Latest Git code
 # Install git
@@ -16,14 +17,13 @@ apt-get update -y
 apt-get update -y
 apt-get install -y git php5 php5-mysql apache2 mysql-client awscli
 
-
 # Create install directories
 rm -rf /root/scripts
 mkdir /root/scripts && cd /root/scripts
 
 # Download script
 wget https://raw.githubusercontent.com/alphamusk/bootstrap-scripts/master/getLastestGitCode.sh
-chmod +x /root/scripts/getLastestGitCode.sh
+chmod +x /root/scripts/*.sh
 
 # Clone latest code for App Client webserver
 rm -rf /var/www/html
@@ -51,10 +51,10 @@ echo " ServerName www.${DOMAINNAME}.com"				>> /etc/apache2/sites-enabled/${DOMA
 echo " ServerAdmin webmaster@${DOMAINNAME}.com"			>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " DocumentRoot /var/www/html/${DOMAINNAME}"		>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
-echo " <Directory /var/www/html/${DOMAINNAME}/>"						>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " <Directory /var/www/html/${DOMAINNAME}/>"		>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "  Options Indexes FollowSymLinks"					>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "  AllowOverride None"								>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
-echo "  Require all granted"								>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo "  Require all granted"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " </Directory>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo -n ' ErrorLog ${APACHE_LOG_DIR}/'					>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
@@ -64,32 +64,35 @@ echo "${DOMAINNAME}_access.log combined"				>> /etc/apache2/sites-enabled/${DOMA
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "</VirtualHost>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 
+# Show the apache config
 cat /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 
-# Git shell scripts
+# Git bash shell scripts
 rm -rf /opt
-mkdir -p /opt && cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
+mkdir /opt && cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
 /root/scripts/getLastestGitCode.sh /opt https://github.com/alphamusk bootstrap-scripts
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-web register
+/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
 
-# Other code from S3 itcloudarchitect.com
+# Other code from S3
 mkdir /var/www/html/${DOMAINNAME}
-export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${DOMAINNAME}.com-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1
+export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${DOMAINNAME}-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
 
 # Create crontab for getting latest code
-codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://${DOMAINNAME}.com-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1"
+codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://${DOMAINNAME}-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1"
 job="*/30 * * * * ${codeCMD}"
 cat <(grep -i -v "${codeCMD}" <(crontab -l)) <(echo "${job}") | crontab -
 
 
 # Restart apache for changes to take 
 apachectl restart
+
+# Check to see if it is listening on port xxxx
 netstat -antpu | grep 80
 
 
