@@ -68,6 +68,10 @@ echo " <Directory /var/www/html/itcloudarchitect/lib/>"	>> /etc/apache2/sites-en
 echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " </Directory>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " <Directory /var/www/html/itcloudarchitect/.svn/>" >> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " </Directory>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " <Files \"*.inc\">"								>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " </Files>"										>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
