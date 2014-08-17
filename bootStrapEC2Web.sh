@@ -18,7 +18,7 @@ S3BUCKETSRCCODE="${DOMAINNAME}.com-source"
 # Install git
 apt-get update -y
 apt-get update -y
-apt-get install -y git php5 php5-mysql apache2 mysql-client awscli 
+apt-get install -y git php5 php5-mysql php5-gd apache2 mysql-client awscli 
 
 # Create install directories
 rm -rf /root/scripts
