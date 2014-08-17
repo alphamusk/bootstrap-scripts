@@ -54,11 +54,27 @@ echo " ServerName www.${DOMAINNAME}.com"				>> /etc/apache2/sites-enabled/${DOMA
 echo " ServerAdmin webmaster@${DOMAINNAME}.com"			>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " DocumentRoot /var/www/html/${DOMAINNAME}"		>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " <Directory />"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " </Directory>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " <Directory /var/www/html/${DOMAINNAME}/>"		>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "  Options Indexes FollowSymLinks"					>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "  AllowOverride None"								>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "  Require all granted"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " </Directory>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " <Directory /var/www/html/itcloudarchitect/lib/>"	>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " </Directory>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " <Files \"*.inc\">"								>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " </Files>"										>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " <Files \"*.ini\">"								>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " </Files>"										>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo -n ' ErrorLog ${APACHE_LOG_DIR}/'					>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "${DOMAINNAME}_error.log"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
