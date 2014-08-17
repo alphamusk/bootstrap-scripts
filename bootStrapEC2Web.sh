@@ -80,8 +80,7 @@ chmod +x /opt/bootstrap-scripts/*.sh
 /opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
 
 # Other code from S3
-mkdir /var/www/html/${DOMAINNAME}
-export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${DOMAINNAME}-source /var/www/html/${DOMAINNAME} > /dev/null 2>&1
+export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${S3-BUCKET-SRC-CODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
