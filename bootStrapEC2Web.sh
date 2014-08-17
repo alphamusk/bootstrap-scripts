@@ -12,13 +12,13 @@ export AWS_DEFAULT_REGION=${REGION}
 # Set default short domiain name, no .com etc
 DOMAINNAME='itcloudarchitect'
 TIER='web'
-S3-BUCKET-SRC-CODE="${DOMAINNAME}.com-source"
+S3BUCKETSRCCODE="${DOMAINNAME}.com-source"
 
 ## SETUP: Get Latest Git code
 # Install git
 apt-get update -y
 apt-get update -y
-apt-get install -y git php5 php5-mysql apache2 mysql-client awscli
+apt-get install -y git php5 php5-mysql apache2 mysql-client awscli 
 
 # Create install directories
 rm -rf /root/scripts
@@ -80,18 +80,19 @@ chmod +x /opt/bootstrap-scripts/*.sh
 /opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
 
 # Other code from S3
-export AWS_DEFAULT_REGION=${REGION} && aws s3 cp --recursive s3://${S3-BUCKET-SRC-CODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1
+export AWS_DEFAULT_REGION=${REGION}
+aws s3 cp --recursive s3://${S3BUCKETSRCCODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
 
 # Create crontab for getting latest code
-codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://${S3-BUCKET-SRC-CODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1"
+codeCMD=" export AWS_DEFAULT_REGION=us-west-2 && aws s3 cp --recursive s3://${S3BUCKETSRCCODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1"
 job="*/30 * * * * ${codeCMD}"
 cat <(grep -i -v "${codeCMD}" <(crontab -l)) <(echo "${job}") | crontab -
 
 
-# Restart apache for changes to take 
+# Restart apache for changes to take
 apachectl restart
 
 # Check to see if it is listening on port xxxx
