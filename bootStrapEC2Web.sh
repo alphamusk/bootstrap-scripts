@@ -80,10 +80,17 @@ echo " <Files \"*.ini\">"								>> /etc/apache2/sites-enabled/${DOMAINNAME}.con
 echo "   Require all denied"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " </Files>"										>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " SetEnvIf Request_URI \"^/check.php$\" dontlog"	>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " SetEnvIf Remote_Addr \"127\.0\.0\.1\" dontlog"	>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " SetEnvIf Remote_Addr \"::1\" dontlog"			>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo ' LogFormat "\"%{X-Forwarded-For}i\" %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-agent}i\"" custom' >> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo -n ' ErrorLog ${APACHE_LOG_DIR}/'					>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "${DOMAINNAME}_error.log"							>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo -n ' CustomLog ${APACHE_LOG_DIR}/'					>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
-echo "${DOMAINNAME}_access.log combined"				>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo -n "${DOMAINNAME}_access.log custom"				>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo ' env=!dontlog'									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "</VirtualHost>"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 
