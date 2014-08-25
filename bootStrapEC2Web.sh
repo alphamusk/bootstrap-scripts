@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # BootStrap EC2 Web Server, Ubuntu
 # Version: 140809, 140816
 # Author: AlphaMusk.com
