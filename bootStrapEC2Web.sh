@@ -104,7 +104,8 @@ mkdir /opt && cd /opt && git clone https://github.com/alphamusk/bootstrap-script
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
+# Auto-Scaling does this automatically
+# /opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
 
 # Other code from S3
 export AWS_DEFAULT_REGION=${REGION}

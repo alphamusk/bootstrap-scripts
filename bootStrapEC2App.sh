@@ -46,7 +46,8 @@ cd /opt && git clone https://github.com/alphamusk/bootstrap-scripts
 chmod +x /opt/bootstrap-scripts/*.sh
 
 # Register web server with ELB
-/opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
+# Auto-Scaling does this automatically
+# /opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
 
 # Create crontab for running app server
 serverCMD="/opt/bootstrap-scripts/AppServer.sh > /dev/null 2>&1"
