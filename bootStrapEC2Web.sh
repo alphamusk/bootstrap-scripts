@@ -5,14 +5,12 @@
 # Bootstrap cmd: wget -qO- https://your-url/bootStrapEC2Web.sh | bash
 
 
-# Set the default region
-REGION='us-west-2'
-export AWS_DEFAULT_REGION=${REGION}
+
 
 # Set default short domiain name, no .com etc
 DOMAINNAME='itcloudarchitect.com'
 TIER='web'
-S3BUCKETSRCCODE="source.code.${DOMAINNAME}"
+
 
 ## SETUP: Get Latest Git code
 # Install git
@@ -108,7 +106,9 @@ chmod +x /opt/bootstrap-scripts/*.sh
 # /opt/bootstrap-scripts/regEC2elb.sh ${REGION} ${DOMAINNAME}-${TIER} register
 
 # Other code from S3
+# Set the default region for S3, US Standard
 export AWS_DEFAULT_REGION=us-east-1
+S3BUCKETSRCCODE="source.code.${DOMAINNAME}"
 aws s3 cp --recursive s3://${S3BUCKETSRCCODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
