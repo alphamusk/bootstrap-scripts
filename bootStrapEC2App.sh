@@ -10,7 +10,7 @@ REGION='us-west-2'
 export AWS_DEFAULT_REGION=${REGION}
 
 # Set default short domiain name, no .com etc
-DOMAINNAME='itcloudarchitect'
+DOMAINNAME='itcloudarchitect.com'
 TIER='app'
 
 ## SETUP: Get Latest Git code

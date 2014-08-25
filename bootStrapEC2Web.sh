@@ -10,9 +10,9 @@ REGION='us-west-2'
 export AWS_DEFAULT_REGION=${REGION}
 
 # Set default short domiain name, no .com etc
-DOMAINNAME='itcloudarchitect'
+DOMAINNAME='itcloudarchitect.com'
 TIER='web'
-S3BUCKETSRCCODE="${DOMAINNAME}.com-source"
+S3BUCKETSRCCODE="source.code.${DOMAINNAME}"
 
 ## SETUP: Get Latest Git code
 # Install git
@@ -50,8 +50,8 @@ rm -f /etc/apache2/sites-enabled/000-default.conf
 rm -f /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 touch /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo "<VirtualHost *:80>" 								>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
-echo " ServerName www.${DOMAINNAME}.com"				>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
-echo " ServerAdmin webmaster@${DOMAINNAME}.com"			>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " ServerName www.${DOMAINNAME}"					>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
+echo " ServerAdmin webmaster@${DOMAINNAME}"				>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " DocumentRoot /var/www/html/${DOMAINNAME}"		>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " "												>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
 echo " <Directory />"									>> /etc/apache2/sites-enabled/${DOMAINNAME}.conf
