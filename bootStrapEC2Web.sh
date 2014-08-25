@@ -109,7 +109,7 @@ chmod +x /opt/bootstrap-scripts/*.sh
 # Set the default region for S3, US Standard
 export AWS_DEFAULT_REGION=us-east-1
 S3BUCKETSRCCODE="source.code.${DOMAINNAME}"
-aws s3 cp --recursive s3://${S3BUCKETSRCCODE} /var/www/html/${DOMAINNAME} > /dev/null 2>&1
+aws s3 cp --recursive s3://${S3BUCKETSRCCODE} /var/www/html/${DOMAINNAME} #> /dev/null 2>&1
 chown -R www-data.www-data /var/www/html
 chmod 755 -R /var/www/html
 echo 'environment=cloud' >> /etc/environment
