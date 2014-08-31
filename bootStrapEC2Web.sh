@@ -16,7 +16,7 @@ TIER='web'
 # Install git
 apt-get update -y
 apt-get update -y
-apt-get install -y git php5 php5-mysql php5-gd apache2 mysql-client awscli 
+apt-get install -y git php5 php5-mysql php5-gd apache2 mysql-client awscli sendmail
 
 # Create install directories
 rm -rf /root/scripts
